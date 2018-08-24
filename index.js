@@ -11,6 +11,8 @@ const pool = new Pool({
 
 app.get('/db', async (req, res) => {
   try {
+    console.log('DB URL: ', process.env.DATABASE_URL);
+    console.log('POOL: ', pool);
     const client = await pool.connect()
     const result = await client.query('SELECT * FROM test_table');
     res.render('pages/db', result);
@@ -22,8 +24,7 @@ app.get('/db', async (req, res) => {
 });
 
 
-app
-  .use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
@@ -38,4 +39,3 @@ app.get('/times', (req, res) => {
   }
   res.send(result)
 })
-
