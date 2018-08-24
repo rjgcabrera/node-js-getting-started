@@ -14,10 +14,10 @@ app.get('/db', async (req, res) => {
     console.log('DB URL: ', process.env.DATABASE_URL);
     console.log('POOL: ', pool);
     const client = await pool.connect()
-    const result = await client.query('SELECT * FROM test_table');
+    const results = await client.query('SELECT * FROM test_table');
     console.log('client: ', client);
     console.log('result: ', result);
-    res.render('pages/db', result.rows);
+    res.render('pages/db', results);
     client.release();
   } catch (err) {
     console.error(err);
