@@ -29,6 +29,7 @@ const pool = new Pool({
 
 app.get('/db', async (req, res) => {
   try {
+    console.log('DB_URL: ', process.env.DATABASE_URL)
     const client = await pool.connect()
     const result = await client.query('SELECT * FROM test_table');
     res.render('pages/db', result);
